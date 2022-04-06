@@ -1,0 +1,17 @@
+---
+kind: "Trigger"
+apiVersion: "eventing.knative.dev/v1"
+metadata:
+  name: "gc-level-completed-trigger"
+  namespace: "default"
+spec:
+  broker: "default"
+  filter:
+    attributes:
+      type: "LevelCompletedEvent"
+  subscriber:
+    ref:
+      apiVersion: "serving.knative.dev/v1"
+      kind: "Service"
+      name: "game-controller"
+    uri: "/events"

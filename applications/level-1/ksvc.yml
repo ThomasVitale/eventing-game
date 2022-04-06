@@ -1,0 +1,34 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: level-1
+  labels:
+    networking.knative.dev/visibility: cluster-local
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+    spec:
+      containers:
+        - image: salaboy/fmtok8s-level-1:0.1.0
+          ports:
+            - containerPort: 8081
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+          env:
+            - name: SPRING_CONFIG_IMPORT
+              value: "configtree:/workspace/secrets/*/"
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
+          volumeMounts:
+            - name: redis-credentials-volume
+              mountPath: /workspace/secrets/redis
+      volumes:
+        - name: redis-credentials-volume
+          secret:
+            secretName: polar-redis-credentials

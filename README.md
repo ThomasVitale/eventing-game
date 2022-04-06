@@ -1,1 +1,2 @@
-# eventing-game
+# Eventing Game
+
