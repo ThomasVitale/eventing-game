@@ -1,16 +1,14 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: level-1
+  name: start-level
   labels:
     networking.knative.dev/visibility: cluster-local
 spec:
   template:
     spec:
       containers:
-        - image: salaboy/fmtok8s-level-1:0.1.0
-          ports:
-            - containerPort: 8081
+        - image: salaboy/start-level:latest
           livenessProbe:
             httpGet:
               path: /health/liveness

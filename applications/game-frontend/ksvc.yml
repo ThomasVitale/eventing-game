@@ -1,7 +1,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: game-ui
+  name: game-frontend
 spec:
   template:
     metadata:
@@ -9,7 +9,7 @@ spec:
         autoscaling.knative.dev/minScale: "1"
     spec:
       containers:
-        - image: salaboy/fmtok8s-game-ui:0.1.0
+        - image: ghcr.io/thomasvitale/game/fmtok8s-game-frontend:latest
           ports:
             - containerPort: 8080
           livenessProbe:
@@ -18,9 +18,6 @@ spec:
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-          env:
-            - name: GAME_CONTROLLER_SERVICE
-              value: http://game-controller.default.svc.cluster.local
           resources:
             requests:
               memory: 756Mi
@@ -29,9 +26,9 @@ spec:
               memory: 756Mi
               cpu: "2"
           volumeMounts:
-            - name: game-ui-config-volume
+            - name: game-frontend-config-volume
               mountPath: /opt/config
       volumes:
-        - name: game-ui-config-volume
+        - name: game-frontend-config-volume
           configMap:
-            name: game-ui-config
+            name: game-frontend-config

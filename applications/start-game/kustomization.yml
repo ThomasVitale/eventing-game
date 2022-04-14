@@ -3,4 +3,3 @@ kind: Kustomization
 
 resources:
   - ksvc.yml
-  - trigger.yml

@@ -3,16 +3,18 @@
 First, deploy the Game UI application.
 
 ```shell
-kubectl apply -k game-ui
+kubectl apply -k game-frontend
 ```
 
-Then, deploy the Game Controller application.
+Then, deploy the various functions composing the system.
 
 ```shell
-kubectl apply -k game-controller
+kubectl apply -k start-game
 ```
 
-Finally, deploy the Level 1 application.
+```shell
+kubectl apply -k start-level
+```
 
 ```shell
 kubectl apply -k level-1
