@@ -1,5 +1,6 @@
 #@ load("@ytt:data", "data")
 
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -15,7 +16,6 @@ data:
         timeout-per-shutdown-phase: 15s
 
 ---
-
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:

@@ -15,7 +15,11 @@ spec:
         subPath: applications/test
   template:
     - ytt:
-        valuesFrom:
-          - path: default.yml
+        inline:
+          paths:
+            values.yml: |
+              #@data/values
+              ---
+              namespace: default
   deploy:
     - kapp: {}
