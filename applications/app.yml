@@ -6,18 +6,16 @@ metadata:
   namespace: default
 
 spec:
+  serviceAccountName: kapp-cluster-admin
   syncPeriod: 30s
-
   fetch:
     - git:
         url: https://github.com/ThomasVitale/eventing-game
         ref: origin/carvel
         subPath: applications/test
-
   template:
     - ytt:
         valuesFrom:
           - path: default.yml
-
   deploy:
     - kapp: {}
