@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-frontend-config
+data:
+  application.yml: |
+    server:
+      shutdown:
+        graceful
+    spring:
+      lifecycle:
+        timeout-per-shutdown-phase: 15s
+
+---
+
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: game-frontend
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+    spec:
+      containers:
+        - image: ghcr.io/thomasvitale/game/fmtok8s-game-frontend:latest
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+          resources:
+            requests:
+              memory: 756Mi
+              cpu: "0.1"
+            limits:
+              memory: 756Mi
+              cpu: "2"
+          volumeMounts:
+            - name: game-frontend-config-volume
+              mountPath: /opt/config
+      volumes:
+        - name: game-frontend-config-volume
+          configMap:
+            name: game-frontend-config

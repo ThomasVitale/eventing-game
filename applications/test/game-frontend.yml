@@ -1,7 +1,26 @@
+#@ load("@ytt:data", "data")
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-frontend-config
+  namespace: #@ data.values.namespace
+data:
+  application.yml: |
+    server:
+      shutdown:
+        graceful
+    spring:
+      lifecycle:
+        timeout-per-shutdown-phase: 15s
+
+---
+
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
   name: game-frontend
+  namespace: #@ data.values.namespace
 spec:
   template:
     metadata:

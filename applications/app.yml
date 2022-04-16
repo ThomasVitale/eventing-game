@@ -1,0 +1,23 @@
+apiVersion: kappctrl.k14s.io/v1alpha1
+kind: App
+
+metadata:
+  name: eventing-game
+  namespace: default
+
+spec:
+  syncPeriod: 30s
+
+  fetch:
+    - git:
+        url: https://github.com/ThomasVitale/eventing-game
+        ref: origin/carvel
+        subPath: applications/test
+
+  template:
+    - ytt:
+        valuesFrom:
+          - path: default.yml
+
+  deploy:
+    - kapp: {}
