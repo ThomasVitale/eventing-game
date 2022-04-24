@@ -1,3 +1,4 @@
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -34,3 +35,13 @@ metadata:
   namespace: default
   annotations:
     kapp.k14s.io/change-group: serviceaccount
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageRepository
+metadata:
+  name: tce-repo
+spec:
+  syncPeriod: 1m
+  fetch:
+    imgpkgBundle:
+      image: projects.registry.vmware.com/tce/main:0.12.0-rc4

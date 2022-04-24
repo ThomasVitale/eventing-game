@@ -1,4 +1,4 @@
-# Setting up a Kubernetes platform on DigitalOcean
+# Setting up a Kubernetes platform
 
 This guide explains how to set up a Kubernetes platform on DigitalOcean where to run the eventing game application.
 

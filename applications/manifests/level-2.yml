@@ -13,6 +13,7 @@ spec:
     spec:
       containers:
         - image: ghcr.io/thomasvitale/level-2:latest
+          imagePullPolicy: Always
           livenessProbe:
             httpGet:
               path: /health/liveness
