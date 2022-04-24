@@ -26,12 +26,6 @@ Using `kapp`, install the packages necessary to build the platform for running t
 kapp deploy -a platform -f platform/packages
 ```
 
-Finally, deploy a Redis instance.
-
-```shell
-kapp deploy -a redis -f platform/redis
-```
-
 ## Deploy the application services
 
 Deploy the application services part of the game system as follows.
