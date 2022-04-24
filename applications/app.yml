@@ -2,11 +2,11 @@ apiVersion: kappctrl.k14s.io/v1alpha1
 kind: App
 
 metadata:
-  name: eventing-game
+  name: serverless-game
   namespace: default
 
 spec:
-  serviceAccountName: kapp-cluster-admin
+  serviceAccountName: platform-sa
   syncPeriod: 30s
   fetch:
     - git:
@@ -20,7 +20,7 @@ spec:
             values.yml: |
               #@data/values
               ---
-              namespace: default
-              external_name: 127.0.0.1.sslip.io
+              namespace: game
+              external_name: 127.0.0.1.nip.io
   deploy:
     - kapp: {}

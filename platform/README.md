@@ -85,7 +85,7 @@ One way to install and manage Knative is via the official [Operator](https://kna
 Install the Knative Operator as follows.
 
 ```shell
-kubectl apply -f https://github.com/knative/operator/releases/download/knative-v1.3.1/operator.yaml
+kubectl apply -f https://github.com/knative/operator/releases/download/knative-v1.4.0/operator.yaml
 ```
 
 You can verify the Operator is deployed with this command.
