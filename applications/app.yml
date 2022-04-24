@@ -21,5 +21,6 @@ spec:
               #@data/values
               ---
               namespace: default
+              external_name: 127.0.0.1.sslip.io
   deploy:
     - kapp: {}
