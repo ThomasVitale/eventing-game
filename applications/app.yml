@@ -2,7 +2,7 @@ apiVersion: kappctrl.k14s.io/v1alpha1
 kind: App
 
 metadata:
-  name: serverless-game
+  name: eventing-game
   namespace: default
 
 spec:
@@ -12,7 +12,7 @@ spec:
     - git:
         url: https://github.com/ThomasVitale/eventing-game
         ref: origin/carvel
-        subPath: applications/test
+        subPath: applications/manifests
   template:
     - ytt:
         inline:
@@ -20,7 +20,11 @@ spec:
             values.yml: |
               #@data/values
               ---
-              namespace: game
+              namespace: default
               external_name: 127.0.0.1.nip.io
+              
+              redis:
+                host: game-redis.redis.svc.cluster.local
+                password: ""
   deploy:
     - kapp: {}

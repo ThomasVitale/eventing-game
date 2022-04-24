@@ -1,0 +1,49 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: redis
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-redis
+  namespace: redis
+  labels:
+    db: game-redis
+spec:
+  selector:
+    matchLabels:
+      db: game-redis
+  template:
+    metadata:
+      labels:
+        db: game-redis
+    spec:
+      containers:
+        - name: game-redis
+          image: redis:6.2
+          resources:
+            requests:
+              cpu: 100m
+              memory: 50Mi
+            limits:
+              cpu: 250m
+              memory: 250Mi
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: game-redis
+  namespace: redis
+  labels:
+    db: game-redis
+spec:
+  type: ClusterIP
+  selector:
+    db: game-redis
+  ports:
+    - protocol: TCP
+      port: 6379
+      targetPort: 6379

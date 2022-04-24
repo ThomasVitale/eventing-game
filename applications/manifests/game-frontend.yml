@@ -1,7 +1,11 @@
+#@ load("@ytt:data", "data")
+
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: game-frontend-config
+  namespace: #@ data.values.namespace
 data:
   application.yml: |
     server:
@@ -12,27 +16,58 @@ data:
         timeout-per-shutdown-phase: 15s
 
 ---
-
-apiVersion: serving.knative.dev/v1
+apiVersion: v1
 kind: Service
 metadata:
   name: game-frontend
+  namespace: #@ data.values.namespace
+  labels:
+    app: game-frontend
 spec:
+  selector:
+    app: game-frontend
+  ports:
+    - port: 8080
+      targetPort: 8080
+      name: http
+    - port: 9000
+      targetPort: 9000
+      name: rsocket
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-frontend
+  namespace: #@ data.values.namespace
+  labels:
+    app: game-frontend
+spec:
+  selector:
+    matchLabels:
+      app: game-frontend
   template:
     metadata:
-      annotations:
-        autoscaling.knative.dev/minScale: "1"
+      labels:
+        app: game-frontend
     spec:
       containers:
-        - image: ghcr.io/thomasvitale/game/fmtok8s-game-frontend:latest
+        - name: game-frontend
+          image: ghcr.io/thomasvitale/fmtok8s-game-frontend:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          env:
+            - name: EXTERNAL_IP
+              value: #@ data.values.external_name
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
+              port: 8080
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
+              port: 8080
           resources:
             requests:
               memory: 756Mi
@@ -47,3 +82,24 @@ spec:
         - name: game-frontend-config-volume
           configMap:
             name: game-frontend-config
+
+---
+apiVersion: projectcontour.io/v1
+kind: HTTPProxy
+metadata:
+  name: game-proxy
+spec:
+  virtualhost:
+    fqdn: #@ data.values.external_name
+  routes:
+    - conditions:
+        - prefix: /ws/
+      enableWebsockets: true
+      services:
+        - name: game-frontend
+          port: 9000
+    - conditions:
+        - prefix: /
+      services:
+        - name: game-frontend
+          port: 8080
