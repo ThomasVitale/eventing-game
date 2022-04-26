@@ -29,10 +29,7 @@ spec:
   ports:
     - port: 8080
       targetPort: 8080
-      name: http
-    - port: 9000
-      targetPort: 9000
-      name: rsocket
+      protocol: TCP
 
 ---
 apiVersion: apps/v1
@@ -57,9 +54,6 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          env:
-            - name: EXTERNAL_IP
-              value: #@ data.values.external_name
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
@@ -99,11 +93,6 @@ spec:
     - conditions:
         - prefix: /ws/
       enableWebsockets: true
-      services:
-        - name: game-frontend
-          port: 9000
-    - conditions:
-        - prefix: /
       services:
         - name: game-frontend
           port: 8080
