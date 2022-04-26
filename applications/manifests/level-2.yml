@@ -1,16 +1,19 @@
+#@ load("@ytt:data", "data")
+
+---
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: level-1
+  name: level-2
+  namespace: #@ data.values.namespace
   labels:
     networking.knative.dev/visibility: cluster-local
 spec:
   template:
     spec:
       containers:
-        - image: salaboy/fmtok8s-level-1:0.1.0
-          ports:
-            - containerPort: 8081
+        - image: ghcr.io/thomasvitale/level-2:latest
+          imagePullPolicy: Always
           livenessProbe:
             httpGet:
               path: /health/liveness
@@ -19,6 +22,6 @@ spec:
               path: /health/readiness
           env:
             - name: REDIS_HOST
-              value: ""
+              value: #@ data.values.redis.host
             - name: REDIS_PASSWORD
-              value: ""
+              value: #@ data.values.redis.password

@@ -1,0 +1,31 @@
+apiVersion: kappctrl.k14s.io/v1alpha1
+kind: App
+
+metadata:
+  name: eventing-game
+  namespace: default
+
+spec:
+  serviceAccountName: platform-sa
+  syncPeriod: 30s
+  fetch:
+    - git:
+        url: https://github.com/ThomasVitale/eventing-game
+        ref: origin/carvel
+        subPath: applications/manifests
+  template:
+    - ytt:
+        ignoreUnknownComments: true
+        inline:
+          paths:
+            values.yml: |
+              #@data/values
+              ---
+              namespace: default
+              external_name: 127.0.0.1.nip.io
+              
+              redis:
+                host: game-redis.redis.svc.cluster.local:6379
+                password: ""
+  deploy:
+    - kapp: {}

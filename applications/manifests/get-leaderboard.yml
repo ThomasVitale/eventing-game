@@ -1,14 +1,19 @@
+#@ load("@ytt:data", "data")
+
+---
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: start-level
+  name: get-leaderboard
+  namespace: #@ data.values.namespace
   labels:
     networking.knative.dev/visibility: cluster-local
 spec:
   template:
     spec:
       containers:
-        - image: salaboy/start-level:latest
+        - image: ghcr.io/thomasvitale/get-leaderboard:latest
+          imagePullPolicy: Always
           livenessProbe:
             httpGet:
               path: /health/liveness
@@ -17,6 +22,6 @@ spec:
               path: /health/readiness
           env:
             - name: REDIS_HOST
-              value: ""
+              value: #@ data.values.redis.host
             - name: REDIS_PASSWORD
-              value: ""
+              value: #@ data.values.redis.password
