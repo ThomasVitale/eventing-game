@@ -91,7 +91,7 @@ spec:
     fqdn: #@ data.values.external_name
   routes:
     - conditions:
-        - prefix: /ws/
+        - prefix: /
       enableWebsockets: true
       services:
         - name: game-frontend

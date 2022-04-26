@@ -1,0 +1,15 @@
+---
+apiVersion: packaging.carvel.dev/v1alpha1
+kind: PackageInstall
+metadata:
+  name: cert-manager
+  annotations:
+    kapp.k14s.io/change-group: "cloud.thomasvitale.com/cert-manager"
+    kapp.k14s.io/change-rule: "upsert after upserting cloud.thomasvitale.com/package-repo"
+spec:
+  serviceAccountName: platform-sa
+  syncPeriod: 1m
+  packageRef:
+    refName: cert-manager.community.tanzu.vmware.com
+    versionSelection:
+      constraints: 1.6.1
