@@ -15,6 +15,7 @@ spec:
         subPath: applications/manifests
   template:
     - ytt:
+        ignoreUnknownComments: true
         inline:
           paths:
             values.yml: |
