@@ -25,7 +25,9 @@ spec:
               external_name: 127.0.0.1.nip.io
               
               redis:
-                host: game-redis.redis.svc.cluster.local:6379
+                host: game-redis.redis.svc.cluster.local
+                port: 6379
                 password: ""
+                host_full: game-redis.redis.svc.cluster.local:6379
   deploy:
     - kapp: {}

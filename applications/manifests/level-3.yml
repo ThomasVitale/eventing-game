@@ -1,0 +1,59 @@
+#@ load("@ytt:data", "data")
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: level-3-config
+  namespace: #@ data.values.namespace
+data:
+  application.yml: |
+    server:
+      shutdown:
+        graceful
+    spring:
+      lifecycle:
+        timeout-per-shutdown-phase: 15s
+      redis:
+        host: #@ data.values.redis.host
+        port: #@ data.values.redis.port
+        password: #@ data.values.redis.password
+
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: level-3
+  namespace: #@ data.values.namespace
+  labels:
+    networking.knative.dev/visibility: cluster-local
+spec:
+  template:
+    spec:
+      containers:
+        - image: ghcr.io/thomasvitale/level-3:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: 756Mi
+              cpu: "0.1"
+            limits:
+              memory: 756Mi
+              cpu: "2"
+          volumeMounts:
+            - name: level-3-config-volume
+              mountPath: /workspace/config
+          volumes:
+            - name: level-3-config-volume
+              configMap:
+                name: level-3-config
