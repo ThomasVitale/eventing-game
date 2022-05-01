@@ -12,12 +12,28 @@ metadata:
   namespace: knative-eventing
   annotations:
     kapp.k14s.io/change-group: "cloud.thomasvitale.com/knative-eventing"
----
-apiVersion: eventing.knative.dev/v1
-kind: Broker
-metadata:
-  name: default
-  namespace: default
-  annotations:
-    kapp.k14s.io/change-group: "cloud.thomasvitale.com/knative-broker"
-    kapp.k14s.io/change-rule: "upsert after upserting cloud.thomasvitale.com/knative-eventing"
+#---
+#apiVersion: apiextensions.k8s.io/v1
+#kind: CustomResourceDefinition
+#metadata:
+#  name: brokers.eventing.knative.dev
+#  annotations:
+#    kapp.k14s.io/exists: ""
+#spec:
+#  group: eventing.knative.dev
+#  versions:
+#    - name: v1
+#  names:
+#    kind: Broker
+#    plural: brokers
+#    singular: broker
+#  scope: Namespaced
+#---
+#apiVersion: eventing.knative.dev/v1
+#kind: Broker
+#metadata:
+#  name: default
+#  namespace: default
+#  annotations:
+#    kapp.k14s.io/change-group: "cloud.thomasvitale.com/eventing-broker"
+#    kapp.k14s.io/change-rule: "upsert after upserting cloud.thomasvitale.com/knative-eventing"

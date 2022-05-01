@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: game-frontend
-          image: ghcr.io/thomasvitale/fmtok8s-game-frontend:latest
+          image: ghcr.io/salaboy/fmtok8s-game-frontend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

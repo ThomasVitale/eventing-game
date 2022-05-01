@@ -30,6 +30,12 @@ Using `kapp`, install the packages necessary to build the platform for running t
 kapp deploy -a packages -f platform/packages-local
 ```
 
+Finally, deploy an event broker using Knative Eventing.
+
+```shell
+kapp deploy -a knative-eventing -f platform/knative-eventing
+```
+
 ### DigitalOcean
 
 This section will describe how to set up a Kubernetes platform on DigitalOcean.

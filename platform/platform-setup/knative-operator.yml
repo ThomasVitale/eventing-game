@@ -825,7 +825,7 @@ spec:
                   description: A means to override the corresponding entries in the upstream configmaps
                   type: object
                 defaultBrokerClass:
-                  description: The default broker type to use for the brokers Knative creates. If no value is provided, MTChannelBasedBroker will be used.
+                  description: The default knative-eventing type to use for the brokers Knative creates. If no value is provided, MTChannelBasedBroker will be used.
                   type: string
                 high-availability:
                   description: Allows specification of HA control plane
@@ -1466,7 +1466,7 @@ spec:
                   description: A means to override the corresponding entries in the upstream configmaps
                   type: object
                 defaultBrokerClass:
-                  description: The default broker type to use for the brokers Knative creates. If no value is provided, MTChannelBasedBroker will be used.
+                  description: The default knative-eventing type to use for the brokers Knative creates. If no value is provided, MTChannelBasedBroker will be used.
                   type: string
                 high-availability:
                   description: Allows specification of HA control plane
