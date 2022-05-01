@@ -15,7 +15,7 @@ kind create cluster --config platform/kind-config.yml
 Deploy `kapp-controller` from the Carvel suite.
 
 ```shell
-kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.35.0/release.yml
+kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.36.1/release.yml
 ```
 
 Set up the cluster to handle Carvel packages.

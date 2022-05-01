@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: knative-eventing
+  annotations:
+    kapp.k14s.io/change-group: "cloud.thomasvitale.com/knative-eventing"
+---
+apiVersion: operator.knative.dev/v1beta1
+kind: KnativeEventing
+metadata:
+  name: knative-eventing
+  namespace: knative-eventing
+  annotations:
+    kapp.k14s.io/change-group: "cloud.thomasvitale.com/knative-eventing"
+---
+apiVersion: eventing.knative.dev/v1
+kind: Broker
+metadata:
+  name: default
+  namespace: default
+  annotations:
+    kapp.k14s.io/change-group: "cloud.thomasvitale.com/knative-broker"
+    kapp.k14s.io/change-rule: "upsert after upserting cloud.thomasvitale.com/knative-eventing"

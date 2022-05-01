@@ -45,15 +45,15 @@ spec:
             periodSeconds: 10
           resources:
             requests:
-              memory: 756Mi
+              memory: 512Mi
               cpu: "0.1"
             limits:
-              memory: 756Mi
+              memory: 512Mi
               cpu: "2"
           volumeMounts:
             - name: level-3-config-volume
               mountPath: /workspace/config
-          volumes:
-            - name: level-3-config-volume
-              configMap:
-                name: level-3-config
+      volumes:
+        - name: level-3-config-volume
+          configMap:
+            name: level-3-config
