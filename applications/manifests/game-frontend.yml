@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: game-frontend
-          image: ghcr.io/salaboy/fmtok8s-game-frontend:latest
+          image: ghcr.io/thomasvitale/fmtok8s-game-frontend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -57,3 +57,21 @@ spec:
         - name: game-frontend-config-volume
           configMap:
             name: game-frontend-config
+
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: game-score-trigger
+  namespace: default
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: GameScoreEvent
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: game-frontend
+    uri: /gamescores
