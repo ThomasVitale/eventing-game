@@ -23,6 +23,9 @@ metadata:
   namespace: #@ data.values.namespace
 spec:
   template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/min-scale: "1"
     spec:
       containers:
         - name: game-frontend
@@ -54,86 +57,3 @@ spec:
         - name: game-frontend-config-volume
           configMap:
             name: game-frontend-config
-
-#
-#---
-#apiVersion: v1
-#kind: Service
-#metadata:
-#  name: game-frontend
-#  namespace: #@ data.values.namespace
-#  labels:
-#    app: game-frontend
-#spec:
-#  selector:
-#    app: game-frontend
-#  ports:
-#    - port: 8080
-#      targetPort: 8080
-#      protocol: TCP
-#
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: game-frontend
-#  namespace: #@ data.values.namespace
-#  labels:
-#    app: game-frontend
-#spec:
-#  selector:
-#    matchLabels:
-#      app: game-frontend
-#  template:
-#    metadata:
-#      labels:
-#        app: game-frontend
-#    spec:
-#      containers:
-#        - name: game-frontend
-#          image: ghcr.io/thomasvitale/fmtok8s-game-frontend:latest
-#          imagePullPolicy: Always
-#          ports:
-#            - containerPort: 8080
-#          livenessProbe:
-#            httpGet:
-#              path: /actuator/health/liveness
-#              port: 8080
-#            initialDelaySeconds: 10
-#            periodSeconds: 5
-#          readinessProbe:
-#            httpGet:
-#              path: /actuator/health/readiness
-#              port: 8080
-#            initialDelaySeconds: 10
-#            periodSeconds: 10
-#          resources:
-#            requests:
-#              memory: 756Mi
-#              cpu: "0.1"
-#            limits:
-#              memory: 756Mi
-#              cpu: "2"
-#          volumeMounts:
-#            - name: game-frontend-config-volume
-#              mountPath: /opt/config
-#      volumes:
-#        - name: game-frontend-config-volume
-#          configMap:
-#            name: game-frontend-config
-#
-#---
-#apiVersion: projectcontour.io/v1
-#kind: HTTPProxy
-#metadata:
-#  name: game-proxy
-#spec:
-#  virtualhost:
-#    fqdn: #@ data.values.external_name
-#  routes:
-#    - conditions:
-#        - prefix: /
-#      enableWebsockets: true
-#      services:
-#        - name: game-frontend
-#          port: 8080
