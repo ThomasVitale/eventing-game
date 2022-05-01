@@ -1,5 +1,6 @@
 #@ load("@ytt:data", "data")
 
+#@yaml/text-templated-strings
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -18,9 +19,9 @@ data:
       lifecycle:
         timeout-per-shutdown-phase: 15s
       redis:
-        host: #@ data.values.redis.host
-        port: #@ data.values.redis.port
-        password: #@ data.values.redis.password
+        host: (@= data.values.redis.host @)
+        port: (@= data.values.redis.port @)
+        password: (@= data.values.redis.password @)
 
 ---
 apiVersion: serving.knative.dev/v1
