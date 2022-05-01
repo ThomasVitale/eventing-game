@@ -124,3 +124,11 @@ kapp inspect -a eventing-game
 
 When the application is up and running, you can open a browser window, navigate to the DNS name you specified previously,
 and play the game.
+
+## Delete the local cluster
+
+Run this command to delete the local `kind` cluster.
+
+```shell
+kind delete cluster --name game-cluster
+```
