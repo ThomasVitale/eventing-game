@@ -22,6 +22,6 @@ spec:
               path: /health/readiness
           env:
             - name: REDIS_HOST
-              value: #@ data.values.redis.host
+              value: #@ data.values.redis.host_and_port
             - name: REDIS_PASSWORD
               value: #@ data.values.redis.password
