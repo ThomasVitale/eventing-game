@@ -14,6 +14,21 @@ data:
     spring:
       lifecycle:
         timeout-per-shutdown-phase: 15s
+    levels:
+      - name: "Start"
+        functionName: ""
+      - name: "Level 1"
+        functionName: "level-1"
+        componentName: "Level1"
+      - name: "Level 2"
+        functionName: "level-2"
+        componentName: "Level2"
+      - name: "Level 3"
+        functionName: "level-3"
+        componentName: "Level3"
+      - name: "End"
+        functionName: ""
+        componentName: "GameComplete"
 
 ---
 apiVersion: serving.knative.dev/v1

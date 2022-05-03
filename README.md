@@ -21,19 +21,19 @@ kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases
 Set up the cluster to handle Carvel packages.
 
 ```shell
-kapp deploy -a platform-setup -f platform/platform-setup
+kapp deploy -a platform-setup -f platform/platform-setup --yes
 ```
 
 Using `kapp`, install the packages necessary to build the platform for running the game.
 
 ```shell
-kapp deploy -a packages -f platform/packages-local
+kapp deploy -a packages -f platform/packages-local --yes
 ```
 
 Finally, deploy an event broker using Knative Eventing.
 
 ```shell
-kapp deploy -a knative-eventing -f platform/knative-eventing
+kapp deploy -a knative-eventing -f platform/knative-eventing --yes
 ```
 
 ### DigitalOcean
@@ -113,7 +113,7 @@ kapp deploy -a packages -f platform/packages-cloud
 Deploy the application services part of the game system as follows.
 
 ```shell
-kapp deploy -a eventing-game -f applications/app.yml
+kapp deploy -a eventing-game -f applications/app.yml --yes
 ```
 
 Using the `kapp` CLI, you can get the most relevant information about the deployment in a very convenient way:
