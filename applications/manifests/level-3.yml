@@ -9,19 +9,19 @@ metadata:
   namespace: #@ data.values.namespace
 data:
   application.yml: |
-    game:
-      eventing:
-        enabled: true
+#    game:
+#      eventing:
+#        enabled: true
     server:
       shutdown:
         graceful
     spring:
       lifecycle:
         timeout-per-shutdown-phase: 15s
-      redis:
-        host: (@= data.values.redis.host @)
-        port: (@= data.values.redis.port @)
-        password: (@= data.values.redis.password @)
+#      redis:
+#        host: (@= data.values.redis.host @)
+#        port: (@= data.values.redis.port @)
+#        password: (@= data.values.redis.password @)
 
 ---
 apiVersion: serving.knative.dev/v1
@@ -43,6 +43,9 @@ spec:
             httpGet:
               path: /actuator/health/liveness
             periodSeconds: 5
+          env:
+            - name: SERVICE_BINDING_ROOT
+              value: /workspace/bindings
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
@@ -59,6 +62,8 @@ spec:
               mountPath: /workspace/config
             - name: eventing-config-volume
               mountPath: /workspace/config/*/
+            - name: redis-binding-volume
+              mountPath: /workspace/bindings/redis
       volumes:
         - name: level-3-config-volume
           configMap:
@@ -66,3 +71,6 @@ spec:
         - name: eventing-config-volume
           configMap:
             name: eventing-config
+        - name: redis-binding-volume
+          secret:
+            name: redis-credentials
