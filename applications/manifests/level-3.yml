@@ -9,9 +9,6 @@ metadata:
   namespace: #@ data.values.namespace
 data:
   application.yml: |
-#    game:
-#      eventing:
-#        enabled: true
     server:
       shutdown:
         graceful
