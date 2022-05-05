@@ -9,16 +9,17 @@ metadata:
   namespace: #@ data.values.namespace
 data:
   application.yml: |
+    game:
+      eventing:
+        enabled: true
     server:
       shutdown:
         graceful
     spring:
       lifecycle:
         timeout-per-shutdown-phase: 15s
-#      redis:
-#        host: (@= data.values.redis.host @)
-#        port: (@= data.values.redis.port @)
-#        password: (@= data.values.redis.password @)
+      profiles:
+        active: redis
 
 ---
 apiVersion: serving.knative.dev/v1
@@ -57,17 +58,12 @@ spec:
           volumeMounts:
             - name: level-3-config-volume
               mountPath: /workspace/config
-            - name: eventing-config-volume
-              mountPath: /workspace/config/*/
             - name: redis-binding-volume
               mountPath: /workspace/bindings/redis
       volumes:
         - name: level-3-config-volume
           configMap:
             name: level-3-config
-        - name: eventing-config-volume
-          configMap:
-            name: eventing-config
         - name: redis-binding-volume
           secret:
             secretName: redis-credentials

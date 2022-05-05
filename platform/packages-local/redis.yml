@@ -8,9 +8,9 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: redis-credentials
-type: servicebinding.io/redis
 stringData:
   type: redis
+  provider: cluster
   host: game-redis.redis.svc.cluster.local
   port: "6379"
 
