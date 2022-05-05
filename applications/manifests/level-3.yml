@@ -18,8 +18,10 @@ data:
     spring:
       lifecycle:
         timeout-per-shutdown-phase: 15s
-      profiles:
-        active: redis
+      redis:
+        host: (@= data.values.redis.host @)
+        port: (@= data.values.redis.port @)
+        password: (@= data.values.redis.password @)
 
 ---
 apiVersion: serving.knative.dev/v1
@@ -41,9 +43,6 @@ spec:
             httpGet:
               path: /actuator/health/liveness
             periodSeconds: 5
-          env:
-            - name: SERVICE_BINDING_ROOT
-              value: /workspace/bindings
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
@@ -58,12 +57,7 @@ spec:
           volumeMounts:
             - name: level-3-config-volume
               mountPath: /workspace/config
-            - name: redis-binding-volume
-              mountPath: /workspace/bindings/redis
       volumes:
         - name: level-3-config-volume
           configMap:
             name: level-3-config
-        - name: redis-binding-volume
-          secret:
-            secretName: redis-credentials
