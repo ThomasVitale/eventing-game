@@ -70,4 +70,4 @@ spec:
             name: eventing-config
         - name: redis-binding-volume
           secret:
-            name: redis-credentials
+            secretName: redis-credentials
