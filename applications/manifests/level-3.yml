@@ -57,7 +57,12 @@ spec:
           volumeMounts:
             - name: level-3-config-volume
               mountPath: /workspace/config
+            - name: eventing-config-volume
+              mountPath: /workspace/config/*/
       volumes:
         - name: level-3-config-volume
           configMap:
             name: level-3-config
+        - name: eventing-config-volume
+          configMap:
+            name: eventing-config

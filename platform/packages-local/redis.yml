@@ -4,6 +4,17 @@ metadata:
   name: redis
 
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: redis-credentials
+type: servicebinding.io/redis
+stringData:
+  type: redis
+  host: game-redis.redis.svc.cluster.local
+  port: 6379
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
