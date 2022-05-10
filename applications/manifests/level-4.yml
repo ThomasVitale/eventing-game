@@ -5,7 +5,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: devoxxuk-questions-4-config
+  name: devoxxuk-question-4-config
   namespace: #@ data.values.namespace
 data:
   application.yml: |
