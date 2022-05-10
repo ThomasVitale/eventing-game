@@ -53,7 +53,7 @@ Create a Kubernetes cluster using the Digital Ocean managed service with your ch
 
 ```shell
 doctl k8s cluster create game-cluster \
-  --node-pool "name=basicnp;size=s-2vcpu-4gb;count=3;label=type=basic;" \
+  --node-pool "name=basicnp;size=s-2vcpu-4gb;count=4;label=type=basic;" \
   --region ams3
 ```
 
