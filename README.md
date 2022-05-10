@@ -105,7 +105,7 @@ kapp deploy -a platform-setup -f platform/platform-setup --yes
 Using `kapp`, install the packages necessary to build the platform for running the game.
 
 ```shell
-kapp deploy -a packages -f platform/packages-cloud
+kapp deploy -a packages -f platform/packages-cloud --yes
 ```
 
 Finally, deploy an event broker using Knative Eventing.

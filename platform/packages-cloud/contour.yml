@@ -23,8 +23,6 @@ metadata:
 stringData:
   values.yml: |
     ---
-    certificates:
-      useCertManager: true
     contour:
       logLevel: info
     envoy:
