@@ -35,7 +35,7 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/thomasvitale/devoxxuk-questions-5:latest
+        - image: ghcr.io/thomasvitale/devoxxuk-question-5:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
