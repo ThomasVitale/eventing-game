@@ -4,7 +4,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: devoxxuk-questions-1
+  name: devoxxuk-question-1
   namespace: #@ data.values.namespace
   labels:
     networking.knative.dev/visibility: cluster-local

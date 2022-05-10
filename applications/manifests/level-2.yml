@@ -5,7 +5,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: devoxxuk-questions-2-config
+  name: devoxxuk-question-2-config
   namespace: #@ data.values.namespace
 data:
   application.yml: |
@@ -27,7 +27,7 @@ data:
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: devoxxuk-questions-2
+  name: devoxxuk-question-2
   namespace: #@ data.values.namespace
   labels:
     networking.knative.dev/visibility: cluster-local
@@ -55,9 +55,9 @@ spec:
               memory: 256Mi
               cpu: "2"
           volumeMounts:
-            - name: devoxxuk-questions-2-config-volume
+            - name: devoxxuk-question-2-config-volume
               mountPath: /workspace/config
       volumes:
-        - name: devoxxuk-questions-2-config-volume
+        - name: devoxxuk-question-2-config-volume
           configMap:
-            name: devoxxuk-questions-2-config
+            name: devoxxuk-question-2-config
