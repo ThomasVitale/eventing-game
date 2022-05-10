@@ -49,10 +49,10 @@ spec:
             periodSeconds: 10
           resources:
             requests:
-              memory: 512Mi
+              memory: 256Mi
               cpu: "0.1"
             limits:
-              memory: 512Mi
+              memory: 256Mi
               cpu: "2"
           volumeMounts:
             - name: devoxxuk-questions-3-config-volume
