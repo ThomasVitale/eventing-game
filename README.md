@@ -9,7 +9,7 @@ This section will describe how to set up a Kubernetes platform locally with `kin
 Create a new Kubernetes cluster using `kind`.
 
 ```shell
-kind create cluster --config platform/kind-config.yml
+kind create cluster --config local/kind-config.yml
 ```
 
 Deploy `kapp-controller` from the Carvel suite.
@@ -21,19 +21,19 @@ kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases
 Set up the cluster to handle Carvel packages.
 
 ```shell
-kapp deploy -a platform-setup -f platform/platform-setup --yes
+kapp deploy -a platform-setup -f local/platform-setup --yes
 ```
 
 Using `kapp`, install the packages necessary to build the platform for running the game.
 
 ```shell
-kapp deploy -a packages -f platform/packages-local --yes
+kapp deploy -a packages -f local/packages --yes
 ```
 
 Finally, deploy an event broker using Knative Eventing.
 
 ```shell
-kapp deploy -a knative-eventing -f platform/knative-eventing --yes
+kapp deploy -a knative-eventing -f local/knative-eventing --yes
 ```
 
 ### DigitalOcean
@@ -99,19 +99,19 @@ kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases
 Set up the cluster to handle Carvel packages.
 
 ```shell
-kapp deploy -a platform-setup -f platform/platform-setup --yes
+kapp deploy -a platform-setup -f cloud/platform-setup --yes
 ```
 
 Using `kapp`, install the packages necessary to build the platform for running the game.
 
 ```shell
-kapp deploy -a packages -f platform/packages-cloud --yes
+kapp deploy -a packages -f cloud/packages --yes
 ```
 
 Finally, deploy an event broker using Knative Eventing.
 
 ```shell
-kapp deploy -a knative-eventing -f platform/knative-eventing --yes
+kapp deploy -a knative-eventing -f cloud/knative-eventing --yes
 ```
 
 ## Deploy the application services

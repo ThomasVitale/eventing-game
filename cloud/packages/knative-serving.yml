@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: knative-serving
+  annotations:
+    kapp.k14s.io/change-group: "cloud.thomasvitale.com/knative-serving"
+---
+apiVersion: operator.knative.dev/v1alpha1
+kind: KnativeServing
+metadata:
+  name: knative-serving
+  namespace: knative-serving
+  annotations:
+    kapp.k14s.io/change-group: "cloud.thomasvitale.com/knative-serving"
+spec:
+  ingress:
+    contour:
+      enabled: true
+  config:
+    autoscaler:
+      enable-scale-to-zero: "true"
+    domain:
+      188.166.203.71.sslip.io: ""
+    network:
+      ingress-class: "contour.ingress.networking.knative.dev"
