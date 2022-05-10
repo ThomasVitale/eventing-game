@@ -12,7 +12,7 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/thomasvitale/start-game:latest
+        - image: salaboy/start-game:latest
           imagePullPolicy: Always
           livenessProbe:
             httpGet:

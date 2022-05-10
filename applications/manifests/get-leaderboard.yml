@@ -12,7 +12,7 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/thomasvitale/get-leaderboard:latest
+        - image: salaboy/get-leaderboard:latest
           imagePullPolicy: Always
           livenessProbe:
             httpGet:

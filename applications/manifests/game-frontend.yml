@@ -18,9 +18,21 @@ data:
       levels:
         - name: "Start"
           functionName: ""
+        - name: "Level 1"
+          functionName: "devoxxuk-questions-1"
+          componentName: "DevoxxLevel1"
+        - name: "Level 2"
+          functionName: "devoxxuk-questions-2"
+          componentName: "DevoxxLevel2"
         - name: "Level 3"
-          functionName: "level-3"
-          componentName: "Level3"
+          functionName: "devoxxuk-questions-3"
+          componentName: "DevoxxLevel3"
+        - name: "Level 4"
+          functionName: "devoxxuk-questions-4"
+          componentName: "DevoxxLevel4"
+        - name: "Level 5"
+          functionName: "devoxxuk-questions-5"
+          componentName: "DevoxxLevel5"
         - name: "End"
           functionName: ""
           componentName: "GameComplete"
@@ -38,7 +50,7 @@ spec:
         autoscaling.knative.dev/min-scale: "1"
     spec:
       containers:
-        - image: ghcr.io/thomasvitale/fmtok8s-game-frontend:latest
+        - image: ghcr.io/salaboy/fmtok8s-game-frontend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
