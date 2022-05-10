@@ -22,7 +22,7 @@ spec:
               path: /health/readiness
           env:
             - name: GAME_EVENTING_ENABLED
-              value: true
+              value: "true"
             - name: GAME_EVENTING_BROKER_URI
               value: http://broker-ingress.knative-eventing.svc.cluster.local/default/default
             - name: REDIS_HOST
