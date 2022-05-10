@@ -93,19 +93,25 @@ kubectl config current-context
 Deploy `kapp-controller` from the Carvel suite.
 
 ```shell
-kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.35.0/release.yml
+kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.36.1/release.yml
 ```
 
 Set up the cluster to handle Carvel packages.
 
 ```shell
-kapp deploy -a platform-setup -f platform/platform-setup
+kapp deploy -a platform-setup -f platform/platform-setup --yes
 ```
 
 Using `kapp`, install the packages necessary to build the platform for running the game.
 
 ```shell
 kapp deploy -a packages -f platform/packages-cloud
+```
+
+Finally, deploy an event broker using Knative Eventing.
+
+```shell
+kapp deploy -a knative-eventing -f platform/knative-eventing --yes
 ```
 
 ## Deploy the application services
