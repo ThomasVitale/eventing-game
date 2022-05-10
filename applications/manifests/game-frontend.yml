@@ -13,7 +13,7 @@ data:
         graceful
     spring:
       lifecycle:
-        timeout-per-shutdown-phase: 10s
+        timeout-per-shutdown-phase: 15s
     game:
       levels:
         - name: "Start"
@@ -67,7 +67,7 @@ spec:
           resources:
             requests:
               memory: 756Mi
-              cpu: "0.1"
+              cpu: "0.2"
             limits:
               memory: 756Mi
               cpu: "2"
