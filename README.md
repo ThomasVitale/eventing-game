@@ -21,19 +21,19 @@ kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases
 Set up the cluster to handle Carvel packages.
 
 ```shell
-kapp deploy -a platform-setup -f local/platform-setup --yes
+kapp deploy -a cluster-setup -f local/cluster-setup --yes
 ```
 
 Using `kapp`, install the packages necessary to build the platform for running the game.
 
 ```shell
-kapp deploy -a packages -f local/packages --yes
+kapp deploy -a platform-setup -f local/platform-setup --yes
 ```
 
-Finally, deploy an event broker using Knative Eventing.
+Finally, deploy a Redis instance and an in-memory event broker.
 
 ```shell
-kapp deploy -a knative-eventing -f local/knative-eventing --yes
+kapp deploy -a data-packages -f local/data-packages --yes
 ```
 
 ### DigitalOcean
@@ -53,7 +53,7 @@ Create a Kubernetes cluster using the Digital Ocean managed service with your ch
 
 ```shell
 doctl k8s cluster create game-cluster \
-  --node-pool "name=basicnp;size=s-2vcpu-4gb;count=4;label=type=basic;" \
+  --node-pool "name=basicnp;size=s-2vcpu-4gb;count=3;label=type=basic;" \
   --region ams3
 ```
 
@@ -99,27 +99,28 @@ kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases
 Set up the cluster to handle Carvel packages.
 
 ```shell
-kapp deploy -a platform-setup -f cloud/platform-setup --yes
+kapp deploy -a cluster-setup -f cloud/cluster-setup --yes
 ```
 
 Using `kapp`, install the packages necessary to build the platform for running the game.
 
 ```shell
-kapp deploy -a packages -f cloud/packages --yes
+kapp deploy -a platform-setup -f cloud/platform-setup --yes
 ```
 
-Finally, deploy an event broker using Knative Eventing.
+Finally, deploy a Redis instance and an in-memory event broker.
 
 ```shell
-kapp deploy -a knative-eventing -f cloud/knative-eventing --yes
+kapp deploy -a data-packages -f cloud/data-packages --yes
 ```
 
 ## Deploy the application services
 
-Deploy the application services part of the game system as follows.
+Deploy the application services part of the game system as follows, after replacing `<conf-name>` with `devoxxuk` or
+`kubeconeu`.
 
 ```shell
-kapp deploy -a eventing-game -f applications/app.yml --yes
+kapp deploy -a eventing-game -f applications/<conf-name>/app.yml --yes
 ```
 
 Using the `kapp` CLI, you can get the most relevant information about the deployment in a very convenient way:
