@@ -1,9 +1,0 @@
-#@ load("@ytt:data", "data")
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: eventing-config
-data:
-  game.eventing.enabled: #@ data.values.eventing.enabled

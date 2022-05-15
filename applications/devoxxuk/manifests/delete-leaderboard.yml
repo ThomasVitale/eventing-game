@@ -4,15 +4,13 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: get-leaderboard
+  name: delete-leaderboard
   namespace: #@ data.values.namespace
-  labels:
-    networking.knative.dev/visibility: cluster-local
 spec:
   template:
     spec:
       containers:
-        - image: salaboy/get-leaderboard:latest
+        - image: ghcr.io/salaboy/delete-leaderboard:latest
           imagePullPolicy: Always
           livenessProbe:
             httpGet:

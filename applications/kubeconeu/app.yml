@@ -12,7 +12,7 @@ spec:
     - git:
         url: https://github.com/ThomasVitale/eventing-game
         ref: origin/main
-        subPath: applications/manifests
+        subPath: applications/kubeconeu/manifests
   template:
     - ytt:
         ignoreUnknownComments: true

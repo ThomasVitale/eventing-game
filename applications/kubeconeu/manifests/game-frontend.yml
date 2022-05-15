@@ -1,0 +1,98 @@
+#@ load("@ytt:data", "data")
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: game-frontend-config
+  namespace: #@ data.values.namespace
+data:
+  application.yml: |
+    server:
+      shutdown:
+        graceful
+    spring:
+      lifecycle:
+        timeout-per-shutdown-phase: 15s
+    game:
+      levels:
+        - name: "Start"
+          functionName: ""
+        - name: "Level 1"
+          functionName: "kubeconeu-question-1"
+          componentName: "KubeconEULevel1"
+        - name: "Level 2"
+          functionName: "kubeconeu-question-2"
+          componentName: "KubeconEULevel2"
+        - name: "Level 3"
+          functionName: "kubeconeu-question-3"
+          componentName: "KubeconEULevel3"
+        - name: "Level 4"
+          functionName: "kubeconeu-question-4"
+          componentName: "KubeconEULevel4"
+        - name: "Level 5"
+          functionName: "kubeconeu-question-5"
+          componentName: "KubeconEULevel5"
+        - name: "End"
+          functionName: ""
+          componentName: "GameComplete"
+
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: game-frontend
+  namespace: #@ data.values.namespace
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/min-scale: "1"
+    spec:
+      containers:
+        - image: ghcr.io/salaboy/fmtok8s-game-frontend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+            initialDelaySeconds: 10
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              memory: 756Mi
+              cpu: "0.2"
+            limits:
+              memory: 756Mi
+              cpu: "2"
+          volumeMounts:
+            - name: game-frontend-config-volume
+              mountPath: /opt/config
+      volumes:
+        - name: game-frontend-config-volume
+          configMap:
+            name: game-frontend-config
+
+---
+apiVersion: eventing.knative.dev/v1
+kind: Trigger
+metadata:
+  name: game-score-trigger
+  namespace: default
+spec:
+  broker: default
+  filter:
+    attributes:
+      type: GameScoreEvent
+  subscriber:
+    ref:
+      apiVersion: serving.knative.dev/v1
+      kind: Service
+      name: game-frontend
+    uri: /gamescores

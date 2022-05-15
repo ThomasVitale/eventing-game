@@ -1,0 +1,32 @@
+#@ load("@ytt:data", "data")
+
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: kubeconeu-question-1
+  namespace: #@ data.values.namespace
+  labels:
+    networking.knative.dev/visibility: cluster-local
+spec:
+  template:
+    spec:
+      containers:
+        - image: ghcr.io/salaboy/kubeconeu-question-1:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+          env:
+            - name: GAME_EVENTING_ENABLED
+              value: "true"
+            - name: GAME_EVENTING_BROKER_URI
+              value: http://broker-ingress.knative-eventing.svc.cluster.local/default/default
+            - name: REDIS_HOST
+              value: #@ data.values.redis.host_and_port
+            - name: REDIS_PASSWORD
+              value: #@ data.values.redis.password
+

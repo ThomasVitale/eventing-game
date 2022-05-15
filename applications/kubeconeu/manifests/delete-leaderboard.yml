@@ -10,7 +10,7 @@ spec:
   template:
     spec:
       containers:
-        - image: salaboy/delete-leaderboard:latest
+        - image: ghcr.io/salaboy/delete-leaderboard:latest
           imagePullPolicy: Always
           livenessProbe:
             httpGet:
