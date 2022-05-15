@@ -50,7 +50,7 @@ spec:
         autoscaling.knative.dev/min-scale: "1"
     spec:
       containers:
-        - image: ghcr.io/salaboy/fmtok8s-game-frontend:latest
+        - image: ghcr.io/thomasvitale/fmtok8s-game-frontend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

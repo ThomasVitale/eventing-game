@@ -102,7 +102,15 @@ Set up the cluster to handle Carvel packages.
 kapp deploy -a cluster-setup -f cloud/cluster-setup --yes
 ```
 
-Using `kapp`, install the packages necessary to build the platform for running the game.
+Check the IP address of the load balancer provisioned by Digital Ocean.
+
+```shell
+kubectl get service envoy -n contour-external
+```
+
+Then, update the IP address in `cloud/platform-setup/knative-serving.yml`.
+
+Next, install the packages necessary to build the platform for running the game.
 
 ```shell
 kapp deploy -a platform-setup -f cloud/platform-setup --yes
