@@ -25,3 +25,5 @@ spec:
               value: #@ data.values.redis.host_and_port
             - name: REDIS_PASSWORD
               value: #@ data.values.redis.password
+            - name: REDIS_TLS
+              value: #@ data.values.redis.tls
