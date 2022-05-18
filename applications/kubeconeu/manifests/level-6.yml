@@ -5,7 +5,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: devoxxuk-question-2-config
+  name: devoxxuk-question-4-config
   namespace: #@ data.values.namespace
 data:
   application.yml: |
@@ -27,7 +27,7 @@ data:
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: devoxxuk-question-2
+  name: devoxxuk-question-4
   namespace: #@ data.values.namespace
   labels:
     networking.knative.dev/visibility: cluster-local
@@ -35,7 +35,7 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/thomasvitale/devoxxuk-question-2:latest
+        - image: ghcr.io/thomasvitale/devoxxuk-question-4:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
@@ -55,9 +55,9 @@ spec:
               memory: 256Mi
               cpu: "2"
           volumeMounts:
-            - name: devoxxuk-question-2-config-volume
+            - name: devoxxuk-question-4-config-volume
               mountPath: /workspace/config
       volumes:
-        - name: devoxxuk-question-2-config-volume
+        - name: devoxxuk-question-4-config-volume
           configMap:
-            name: devoxxuk-question-2-config
+            name: devoxxuk-question-4-config

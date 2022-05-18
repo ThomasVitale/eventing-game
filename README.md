@@ -4,6 +4,11 @@
 
 This section will describe how to set up a Kubernetes platform locally with `kind` and in the public cloud on DigitalOcean.
 
+Prerequisites:
+
+* [kind](https://kind.sigs.k8s.io)
+* [kapp](https://carvel.dev/kapp/)
+
 ### Local environment
 
 Create a new Kubernetes cluster using `kind`.
@@ -15,7 +20,7 @@ kind create cluster --config local/kind-config.yml
 Deploy `kapp-controller` from the Carvel suite.
 
 ```shell
-kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.36.1/release.yml
+kapp deploy -a kapp-controller -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.36.1/release.yml --yes
 ```
 
 Set up the cluster to handle Carvel packages.
@@ -93,7 +98,7 @@ kubectl config current-context
 Deploy `kapp-controller` from the Carvel suite.
 
 ```shell
-kubectl apply -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.36.1/release.yml
+kapp deploy -a kapp-controller -f https://github.com/vmware-tanzu/carvel-kapp-controller/releases/download/v0.36.1/release.yml --yes
 ```
 
 Set up the cluster to handle Carvel packages.

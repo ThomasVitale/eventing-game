@@ -4,7 +4,7 @@
 apiVersion: serving.knative.dev/v1
 kind: Service
 metadata:
-  name: kubeconeu-question-3
+  name: kubeconeu-question-5
   namespace: #@ data.values.namespace
   labels:
     networking.knative.dev/visibility: cluster-local
@@ -12,7 +12,7 @@ spec:
   template:
     spec:
       containers:
-        - image: ghcr.io/salaboy/kubeconeu-question-3:latest
+        - image: ghcr.io/salaboy/kubeconeu-question-5:latest
           imagePullPolicy: Always
           livenessProbe:
             httpGet:
