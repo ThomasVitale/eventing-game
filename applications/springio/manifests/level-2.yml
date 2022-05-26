@@ -22,6 +22,7 @@ data:
         host: (@= data.values.redis.host @)
         port: (@= data.values.redis.port @)
         password: (@= data.values.redis.password @)
+        ssl: (@= data.values.redis.tls @)    
 
 ---
 apiVersion: serving.knative.dev/v1

@@ -30,5 +30,6 @@ spec:
                 port: "6379"
                 password: ""
                 host_and_port: game-redis.redis.svc.cluster.local:6379
+                tls: "false"
   deploy:
     - kapp: {}
