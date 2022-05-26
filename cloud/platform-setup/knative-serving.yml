@@ -20,6 +20,6 @@ spec:
     autoscaler:
       enable-scale-to-zero: "true"
     domain:
-      143.244.196.224.sslip.io: ""
+      64.225.83.177.sslip.io: ""
     network:
       ingress-class: "contour.ingress.networking.knative.dev"

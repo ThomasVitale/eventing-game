@@ -129,8 +129,8 @@ kapp deploy -a data-packages -f cloud/data-packages --yes
 
 ## Deploy the application services
 
-Deploy the application services part of the game system as follows, after replacing `<conf-name>` with `devoxxuk` or
-`kubeconeu`.
+Deploy the application services part of the game system as follows, after replacing `<conf-name>` with `devoxxuk`, 
+`kubeconeu`, or `springio`.
 
 ```shell
 kapp deploy -a eventing-game -f applications/<conf-name>/app.yml --yes

@@ -1,0 +1,27 @@
+#@ load("@ytt:data", "data")
+
+---
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: delete-leaderboard
+  namespace: #@ data.values.namespace
+spec:
+  template:
+    spec:
+      containers:
+        - image: ghcr.io/salaboy/delete-leaderboard:latest
+          imagePullPolicy: Always
+          livenessProbe:
+            httpGet:
+              path: /health/liveness
+          readinessProbe:
+            httpGet:
+              path: /health/readiness
+          env:
+            - name: REDIS_HOST
+              value: #@ data.values.redis.host_and_port
+            - name: REDIS_PASSWORD
+              value: #@ data.values.redis.password
+            - name: REDIS_TLS
+              value: #@ data.values.redis.tls
