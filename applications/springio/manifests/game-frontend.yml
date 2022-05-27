@@ -20,19 +20,19 @@ data:
           functionName: ""
         - name: "Level 1"
           functionName: "springio-question-1"
-          componentName: "SpringIOLevel1"
+          componentName: "DevoxxLevel1"
         - name: "Level 2"
           functionName: "springio-question-2"
           componentName: "DevoxxLevel2"
         - name: "Level 3"
           functionName: "springio-question-3"
-          componentName: "SpringIOLevel3"
+          componentName: "DevoxxLevel3"
         - name: "Level 4"
           functionName: "springio-question-4"
           componentName: "DevoxxLevel4"
         - name: "Level 5"
           functionName: "springio-question-5"
-          componentName: "SpringIOLevel5"
+          componentName: "DevoxxLevel5"
         - name: "End"
           functionName: ""
           componentName: "GameComplete"
@@ -50,7 +50,7 @@ spec:
         autoscaling.knative.dev/min-scale: "1"
     spec:
       containers:
-        - image: ghcr.io/salaboy/fmtok8s-game-frontend:latest
+        - image: ghcr.io/salaboy/fmtok8s-game-frontend:14c670e4a1271c0fbbd130b3fc874c34a12bf903
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
